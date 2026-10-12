@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Azka Marzook — Portfolio"
+description = "A personal portfolio for Azka Marzook, a Talent Acquisition Professional and Recruitment Consultant, showcasing her recruitment experience, skills, education, and contact details."
+version = "1.0.0"
+id = "artifacts/azka-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24000
+
+[services.development]
+run = "pnpm --filter @workspace/azka-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/azka-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/azka-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24000"
+BASE_PATH = "/"
